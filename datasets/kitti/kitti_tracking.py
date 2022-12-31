@@ -15,8 +15,8 @@ import cv2
 
 class KittiTracking(Dataset):
   def __init__(self, data_root, id):
-    image_dir = os.path.join(data_root, "images", id)
-    label_file = os.path.join(data_root, "labels", (id+".txt"))
+    image_dir = os.path.join(data_root, "image_02", id)
+    label_file = os.path.join(data_root, "label_02", (id+".txt"))
     image_names = os.listdir(image_dir)
     image_names.sort()
 

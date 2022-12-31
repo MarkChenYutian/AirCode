@@ -13,6 +13,7 @@ import cv2
 import numpy as np
 import argparse
 import copy
+import matplotlib.pyplot as plt
 
 from model.inference import maskrcnn_inference
 from model.build_model import build_maskrcnn, build_gcn, build_superpoint_model
@@ -205,12 +206,28 @@ def show_object_matching(configs):
   gcn_model.eval()
 
   # template image
-  tpl_path = os.path.join(data_root, "template.jpg")
+  tpl_path = os.path.join(data_root, "template.png")
   tpl_image = read_image(tpl_path)
   tpl_output = network_output(tpl_image, superpoint_model, maskrcnn_model, gcn_model, configs)
   tpl_data = {'image':tpl_image, 'points': tpl_output[0], 'objects': tpl_output[1],
        'descs': tpl_output[2], 'keeps': tpl_output[3]}
 
+  """
+  image:     NdArray,          | Template image in black & white
+  points:    List[Tensor[Nx2]] | 
+  objects:   Dict[]            | 
+  keeps:     Tensor.cuda()     | 
+  descs:     Tensor.cuda()     | 
+  """
+
+  # plt.imshow(tpl_data['descs'].cpu())
+  # plt.show()
+  # print(tpl_data['points'])
+  print(type(tpl_data['image']))
+  print(type(tpl_data['points']))
+  print(type(tpl_data['objects']))
+  print(type(tpl_data['descs']))
+  print(type(tpl_data['keeps']))
 
   # filter data
   target_labels = [40]

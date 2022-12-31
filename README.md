@@ -65,8 +65,32 @@ For single-object matching experiment. We select five sequences and they are "Bl
   python experiments/object_tracking/object_tracking.py -c config/experiment_tracking.yaml -g 1 -s PATH_TO_SAVE_RESULTS -d PATH_TO_DATASET -m PATH_TO_MODELS 
   ```
 
+  ```
+  python experiments/object_tracking/object_tracking.py -c config/experiment_tracking.yaml -g 1 -s ./results -d ../KITTI_TRACKING_2/training/ -m ./weights
+  ```
+
 * Run single-object matching experiment in OTB or VOT Datasets
   Modify the [config file](config/experiment_tracking.yaml) and run  
   ```
   python experiments/object_tracking/single_object_tracking.py -c config/experiment_tracking.yaml -g 1 -s PATH_TO_SAVE_RESULTS -d PATH_TO_DATASET -m PATH_TO_MODELS 
   ```
+
+### Show object matching
+
+```
+python experiments/match_object/match_object.py \
+   -c config/experiment_tracking.yaml \
+   -g 1 \
+   -s ./results/16 \
+   -d ../KITTI_TRACKING_2/training/image_02/0016 \
+   -m ./weights 
+```
+
+```
+python experiments/match_object/match_object.py \
+   -c config/experiment_tracking.yaml \
+   -g 1 \
+   -s ./results/vo_16 \
+   -d ../KITTI_VO/sequences/16/camera_0_strip \
+   -m ./weights
+```

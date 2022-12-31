@@ -1,0 +1,31 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: ObjectMatching",
+            "type": "python",
+            "request": "launch",
+            "program": "./experiments/match_object/match_object.py",
+            "args": [
+                "-c", "config/experiment_tracking.yaml",
+                "-g", "1",
+                "-s", "./results/16",
+                "-d", "../KITTI_TRACKING_2/training/image_02/0016",
+                "-m", "./weights"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}

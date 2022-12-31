@@ -7,6 +7,7 @@ sys.path.append('.')
 import os
 
 import torch
+import numpy as np
 import torch.distributed as dist
 from torchvision import transforms
 import copy
@@ -336,6 +337,24 @@ def select_good_clusters(batch_points, thr=5):
   for i in range(len(batch_points)):
     to_keep = True if len(batch_points[i]) >= thr else False
     results.append(to_keep) 
+  
+  return torch.tensor(results)
+
+def filter_good_object(batch_points, masks, pt_thr=5, size_thr=0.01, edge_size=10):
+  results = []
+
+  for i in range(len(batch_points)):
+    has_enough_feature = len(batch_points[i]) >= pt_thr
+    is_big_enough      = torch.mean(masks[i]).item() > size_thr
+
+    top_edge = torch.sum(masks[i, 0, 0:edge_size, :]).item()
+    bot_edge = torch.sum(masks[i, 0, -edge_size:-1, :]).item()
+    left_edge= torch.sum(masks[i, 0, :, 0:edge_size]).item()
+    rght_edge= torch.sum(masks[i, 0, :, -edge_size:-1]).item()
+    not_on_edge = top_edge == 0 and bot_edge == 0 and left_edge == 0 and rght_edge == 0
+
+    to_keep = has_enough_feature and is_big_enough and not_on_edge
+    results.append(to_keep)
   return torch.tensor(results)
 
 def match_points_clusters(points_output, batch_masks, warped_points_output, warped_batch_masks):
