@@ -32,9 +32,10 @@ def preProcessImage(image):
 
 # Read image in gray scale and cvt into 3 channels
 def readImage(image_path):
-    image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
-    if len(image.shape) == 2:
-        image = cv2.merge([image, image, image])
+    # image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    # if len(image.shape) == 2:
+    #     image = cv2.merge([image, image, image])
+    image = cv2.imread(image_path, cv2.IMREAD_COLOR);
     return image
 
 
@@ -130,7 +131,7 @@ def network_output(raw_images, superpoint_model, maskrcnn_model, gcn_model, conf
         # print(len(merge_points))
         # print(detections[0]["masks"].shape)
 
-        is_good_cluster   = preprocess.filter_good_object(merge_points, detections[0]["masks"])
+        is_good_cluster   = preprocess.filter_good_object(merge_points, detections[0]["masks"], size_thr=.001)
         # is_good_cluster: bool Tensor[M]
         
         good_points, good_descriptors = [], []
@@ -402,7 +403,7 @@ if __name__ == "__main__":
     print(os.path.abspath(args.config_file));
     
     with open(args.config_file, "r", encoding="utf-8") as f:
-        config = yaml.load(f.read())
+        config = yaml.load(f.read(), Loader=yaml.UnsafeLoader)
     
     config['use_gpu']   = args.gpu
     config['data_root'] = args.data_root

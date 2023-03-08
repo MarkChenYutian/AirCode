@@ -5,16 +5,41 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Extract Object",
+            "type": "python",
+            "request": "launch",
+            "program": "./experiments/match_object/extract_object.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-c",
+                "config/experiment_tracking.yaml",
+                "-g",
+                "1",
+                "-s",
+                "./results/16",
+                "-d",
+                "../KITTI_TRACKING_2/training/image_02/0016",
+                "-m",
+                "./weights"
+            ],
+            "justMyCode": true
+        },
+        {
             "name": "Python: ObjectMatching",
             "type": "python",
             "request": "launch",
             "program": "./experiments/match_object/match_object.py",
             "args": [
-                "-c", "config/experiment_tracking.yaml",
-                "-g", "1",
-                "-s", "./results/16",
-                "-d", "../KITTI_TRACKING_2/training/image_02/0016",
-                "-m", "./weights"
+                "-c",
+                "config/experiment_tracking.yaml",
+                "-g",
+                "1",
+                "-s",
+                "./results/16",
+                "-d",
+                "../KITTI_TRACKING_2/training/image_02/0016",
+                "-m",
+                "./weights"
             ],
             "console": "integratedTerminal",
             "justMyCode": true
